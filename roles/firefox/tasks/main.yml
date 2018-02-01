@@ -1,0 +1,43 @@
+---
+  - name: Win firefox | Copy Executable
+    win_get_url:
+      url: "{{ firefox_uri }}"
+      dest: 'C:\Firefox.exe'
+
+  - name: Win firefox | Configure and edit config file
+    win_template:
+      src: Configuration.ini.j2
+      dest: C:\Configuration.ini
+
+  - name: Win Firefox | Install with Config
+    win_shell: C:\Firefox.exe /INI=C:\Configuration.ini
+
+  - name: Win Firefox | Delete Exe
+    win_file:
+      path: 'C:\Firefox.exe'
+      state: absent
+
+  - name: Win Firefox | Clean Config File
+    win_file:
+      path: 'C:\Configuration.ini'
+      state: absent
+
+  - name: Win Drivers | Ensure Folder Exist
+    win_file:
+      path: C:\Drivers\Firefox
+      state: directory
+
+  - name: Win Drivers | Download Firefox Driver Package
+    win_get_url:
+      url: "{{gecko_driver_uri}}"
+      dest: C:\Drivers\firefox-{{gecko_driver_version}}.zip
+
+  - name: Win Drivers | Unzip Firefox Driver and Move
+    win_unzip:
+      src: C:\Drivers\firefox-{{gecko_driver_version}}.zip
+      dest: C:\Drivers\firefox\{{gecko_driver_version}}
+
+  - name: Win Drivers | Delete zip
+    win_file:
+      path: 'C:\Drivers\firefox-{{gecko_driver_version}}.zip'
+      state: absent

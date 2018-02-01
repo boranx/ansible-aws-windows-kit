@@ -1,0 +1,7 @@
+---
+  - hosts: localhost
+    vars:
+      tag: "{{ role }}"
+    roles:
+      - ec2-instance
+  - import_playbook: "{{ role }}.yml"

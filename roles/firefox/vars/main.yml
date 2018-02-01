@@ -1,0 +1,5 @@
+gecko_driver_uri: https://github.com/mozilla/geckodriver/releases/download/v{{ gecko_driver_version }}/geckodriver-v{{ gecko_driver_version }}-win64.zip
+gecko_driver_version: 0.18.0
+
+firefox_uri: "https://download.mozilla.org/?product=firefox-{{ firefox_uri_version }}-SSL&os=win64&lang=tr"
+firefox_uri_version: 55.0.1

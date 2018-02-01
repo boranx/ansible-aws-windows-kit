@@ -1,0 +1,2 @@
+Invoke-Command -ComputerName . -AsJob -scriptblock {java -jar C:\Selenium\{{selenium_version}}\selenium.jar -role node -hub {{ selenium_hub_address }}}
+sleep 5

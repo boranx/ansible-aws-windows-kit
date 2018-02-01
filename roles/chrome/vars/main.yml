@@ -1,0 +1,5 @@
+chrome_driver_uri: https://chromedriver.storage.googleapis.com/{{ chrome_driver_version }}/chromedriver_win32.zip
+chrome_driver_version: 2.31
+
+chrome_uri: https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi
+chrome_uri_version: 60.0.3112.101

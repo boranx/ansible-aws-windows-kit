@@ -1,0 +1,13 @@
+---
+  - name: Win Firewall | Copy Powershell
+    win_copy:
+      src: 'CloseWinFirewall.ps1'
+      dest: 'C:\CloseWinFirewall.ps1'
+
+  - name: Win Firewall | Close Firewall
+    win_shell: C:\CloseWinFirewall.ps1
+
+  - name: Win Firewall | Delete Powershell
+    win_file:
+      path: 'C:\CloseWinFirewall.ps1'
+      state: absent

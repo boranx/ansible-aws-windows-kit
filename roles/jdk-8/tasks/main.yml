@@ -1,0 +1,13 @@
+---
+  - name: Win Jdk-8 | Copy Powershell
+    win_copy:
+      src: 'Download_n_Install_Java.ps1'
+      dest: 'C:\Download_n_Install_Java.ps1'
+
+  - name: Win Jdk-8 | Install Java
+    win_shell: C:\Download_n_Install_Java.ps1
+
+  - name: Win Jdk-8 | Delete Powershell
+    win_file:
+      path: 'C:\Download_n_Install_Java.ps1'
+      state: absent      

@@ -1,0 +1,7 @@
+---
+- hosts: ec2
+  roles:
+   - jdk-8
+   - firefox
+   - chrome
+   - selenium-node

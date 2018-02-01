@@ -1,0 +1,7 @@
+---
+  - name: Install IIS Web-Server with sub features and management tools
+    win_feature:
+      name: Web-Server
+      state: present
+      restart: False
+      include_sub_features: True

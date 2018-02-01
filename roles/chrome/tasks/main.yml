@@ -1,0 +1,47 @@
+---
+    - name: Win Chrome | Ensure Directory in Browsers
+      win_file:
+        path: C:\Browsers\Chrome
+        state: directory
+
+    - name: Win Chrome | Copy Setup MSI
+      win_get_url:
+        url: '{{ chrome_uri }}'
+        dest: 'C:\Chrome.msi'
+
+    #Extra arg for custom installation directory msi does not supported by google
+    - name: Win Chrome | Install MSI
+      win_msi:
+        path: C:\Chrome.msi
+        wait: yes
+
+    - name: Win Chrome | Move Chrome to Browsers Folder
+      win_copy:
+        src: C:\Program Files (x86)\Google\Chrome\Application\
+        dest: C:\Browsers\Chrome\
+        remote_src: True
+
+    - name: Win Chome | Delete MSI
+      win_file:
+        path: C:\Chrome.msi
+        state: absent
+
+    - name: Win Drivers | Ensure Folder Exist
+      win_file:
+        path: C:\Drivers\Chrome
+        state: directory
+
+    - name: Win Drivers | Download Chrome Driver Package
+      win_get_url:
+        url: "{{chrome_driver_uri}}"
+        dest: C:\Drivers\chrome-{{chrome_driver_version}}.zip
+
+    - name: Win Drivers | Unzip Chrome Driver and Move
+      win_unzip:
+        src: C:\Drivers\chrome-{{chrome_driver_version}}.zip
+        dest: C:\Drivers\Chrome\{{chrome_driver_version}}
+
+    - name: Win Drivers | Delete zip
+      win_file:
+        path: 'C:\Drivers\chrome-{{chrome_driver_version}}.zip'
+        state: absent

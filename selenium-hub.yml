@@ -1,0 +1,6 @@
+---
+- hosts: ec2
+  roles:
+   - jdk-8
+   - firewall
+   - selenium-hub

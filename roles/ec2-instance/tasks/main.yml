@@ -1,0 +1,37 @@
+---
+  - name: Create EC2 instance
+    ec2:
+      aws_access_key: '{{ aws_access_key }}'
+      aws_secret_key: '{{ aws_secret_key }}'
+      region: '{{ win_ec2_region }}'
+      instance_type: '{{ win_ec2_instance_type }}'
+      instance_tags:
+          Name: '{{win_ec2_name_prefix}}'
+      group: '{{ win_ec2_security_group }}'
+      image: '{{ item_id }}'
+      user_data: "{{ lookup('file', 'win_ec2_user_data') }}"
+      exact_count: 1
+      count_tag:
+          Name: '{{win_ec2_name_prefix}}'
+      wait: yes
+    register: win_ec2
+
+  - name: Wait for instances to listen on port 5986 (winrm https)
+    wait_for:
+      state=started
+      host={{ item.public_ip }}
+      port=5986
+    with_items: "{{ win_ec2.instances }}"
+    when: win_ec2 is defined
+
+  - name: add_host
+    add_host:
+      name: '{{ item.public_dns_name }}'
+      groups: 'ec2'
+      ansible_ssh_host: '{{ item.public_ip }}'
+      ansible_ssh_port: 5986
+      ansible_ssh_user: '{{ win_user }}'
+      ansible_ssh_pass: '{{ win_pass }}'
+      ansible_connection: 'winrm'
+      ansible_winrm_server_cert_validation: ignore
+    with_items: "{{ win_ec2.instances }}"

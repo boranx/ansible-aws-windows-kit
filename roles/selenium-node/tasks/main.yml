@@ -1,0 +1,15 @@
+---
+  - name: Win Selenium | Create Folder
+    win_file:
+      path: C:\Selenium\{{selenium_version}}
+      state: directory
+
+  - name: Win Selenium | Download Selenium Package
+    win_get_url:
+      url: "{{selenium_uri}}"
+      dest: C:\Selenium\{{selenium_version}}\selenium.jar
+
+  - name: Configure ps1 file
+    win_template:
+      src: selenium.ps1.j2
+      dest: C:\Selenium\{{selenium_version}}\selenium.ps1

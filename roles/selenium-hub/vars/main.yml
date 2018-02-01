@@ -1,0 +1,4 @@
+selenium_uri: https://goo.gl/mFtw7n
+selenium_version: 3.5.0
+
+jar_link: C:\\Selenium\\{{selenium_version}}\\selenium.jar

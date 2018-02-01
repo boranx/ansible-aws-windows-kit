@@ -1,0 +1,35 @@
+---
+  - name: Win Selenium | Create Folder
+    win_file:
+      path: C:\Selenium\{{selenium_version}}
+      state: directory
+
+  - name: Win Selenium | Download Selenium Package
+    win_get_url:
+      url: "{{selenium_uri}}"
+      dest: C:\Selenium\{{selenium_version}}\selenium.jar
+
+  - name: Configure ps1 file
+    win_template:
+      src: selenium.ps1.j2
+      dest: C:\Selenium\{{selenium_version}}\selenium.ps1
+
+  - name: Install NSSM Service Manager for managing hub services
+    win_chocolatey:
+      name: NSSM
+      state: present
+
+  - name: Register selenium services role = hub
+    win_shell: nssm install SeleniumHub java -jar C:\Selenium\{{selenium_version}}\selenium.jar -role hub
+    args:
+      executable: cmd
+
+  - name: Set selenium services start automatically role = hub
+    win_shell: nssm.exe set SeleniumHub Start SERVICE_AUTO_START
+    args:
+      executable: cmd
+
+  - name: Start selenium services role = hub
+    win_shell: nssm start SeleniumHub
+    args:
+      executable: cmd
