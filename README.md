@@ -61,7 +61,7 @@ ansible-vault decrypt ...
 
 * Create a subplaybook which contains some roles.
 
-* Run master playbook like below and pass the ```role=subplaybook.yml``` parameter.
+* Run master playbook like below and pass the ```role=subplaybook``` parameter.
 
 ```shell
 ansible-playbook master.yml --extra-vars "role=selenium-hub" --ask-vault-pass
