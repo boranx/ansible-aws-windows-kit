@@ -1,6 +1,6 @@
 # Ansible Aws Windows Kit
 
-Creates dynamic windows instances from ec2. It installs windows features, selenium, jdk etc.. after the provisioning.
+Generic aws windows ansible kit. Creates dynamic windows instances from ec2. It installs windows features, selenium, jdk etc.. after the provisioning.
 
 ## Dependencies
 
@@ -57,14 +57,16 @@ ansible-vault decrypt ...
 
 ## Run
 
-in order to start provision hub:
+* Add your role to ```roles``` folder.
+
+* Create a subplaybook which contains some roles.
+
+* Run master playbook like below and pass the ```role=subplaybook.yml``` parameter.
 
 ```shell
-ansible-playbook provision-hub.yml --ask-vault-pass
+ansible-playbook master.yml --extra-vars "role=selenium-hub" --ask-vault-pass
 ```
 
-then start start provision node:
-
 ```shell
-ansible-playbook provision-node.yml --extra-vars "selenium_hub_register_address=http://seleniumhubaddress:4444/grid/register" --ask-vault-pass
+ansible-playbook master.yml --extra-vars "role=selenium-node selenium_hub_register_address=http://seleniumhubaddress:4444/grid/register" --ask-vault-pass
 ```
