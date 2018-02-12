@@ -19,7 +19,7 @@ sudo pip install xmltodict
 aws_access_key: # AWS Secret key
 aws_secret_key: # AWS Secret key id
 win_ec2_region: eu-west-1
-win_ec2_name_prefix: "{{ selenium_grid_role }}" # You don't need to change this line
+win_ec2_name_prefix: "{{ tag }}" # You don't need to change this line
 win_user: Administrator # User name placed in ec2-instance user data.
 win_pass: # User pass placed in ec2-instance user data.
 win_ec2_security_group: # AWS Security Group Name
