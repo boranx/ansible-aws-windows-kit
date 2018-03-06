@@ -10,7 +10,7 @@
       group: '{{ win_ec2_security_group }}'
       image: '{{ item_id }}'
       user_data: "{{ lookup('file', 'win_ec2_user_data') }}"
-      exact_count: 1
+      exact_count: "{{ machine_count }}"
       count_tag:
           Name: '{{win_ec2_name_prefix}}'
       wait: yes

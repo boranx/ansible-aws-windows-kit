@@ -23,8 +23,9 @@ win_ec2_name_prefix: "{{ tag }}" # You don't need to change this line
 win_user: Administrator # User name placed in ec2-instance user data.
 win_pass: # User pass placed in ec2-instance user data.
 win_ec2_security_group: # AWS Security Group Name
-item_id: ami-96b824ef
-win_ec2_instance_type: t2.micro
+item_id: ami-96b824ef # AWS Base windows AMI
+win_ec2_instance_type: t2.micro # Instance Type
+machine_count: 1 # Exact Machine Count. Machines will be tagged as your role yml file name. If you give exact count 3 and if u have one, ansible will provision two more.
 ```
 
 * Create the ```roles/ec2-instance/files/win_ec2_user_data``` file like this:
